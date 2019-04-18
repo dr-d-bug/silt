@@ -11,8 +11,10 @@
 * @param string $_GET['bg'] - background color
 * @return imagefile (png/jpg)
 * @author Dr.D.Bug
-* @version 0.4
+* @version 0.5
 **/
+//--> Including additional functions
+include 'pixel_word_wrap.php';
 //--> Checking the Input-Parameters
 // Format: jpg or png32
 $fm_pattern = '/^(jpg|png32)$/';
@@ -77,7 +79,9 @@ $tx_col = imagecolorallocate($im, hexdec($arr_tx[0]), hexdec($arr_tx[1]), hexdec
 // fill image with background color
 imagefilledrectangle($im, 0, 0, $pic_width, $pic_height, $bg_col);
 // Wrapping the Text by ((( finally width with size of content text ))) -->> 20 Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-$wrapped_text = wordwrap($txt_content, 20, "\n");
+//$wrapped_text = wordwrap($txt_content, 20, "\n");
+// Wrapping the Text by function pixel_word_wrap();
+$wrapped_text = pixel_word_wrap($txt_content, $pic_width*0.7 , $font_size, $font_file);
 // calculating the textframe
 $text_box = imagettfbbox($font_size, 0, $font_file, $wrapped_text);
 // Get your Text Width and Height
