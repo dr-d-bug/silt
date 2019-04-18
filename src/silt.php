@@ -11,7 +11,7 @@
 * @param string $_GET['bg'] - background color
 * @return imagefile (png/jpg)
 * @author Dr.D.Bug
-* @version 0.3
+* @version 0.4
 **/
 //--> Checking the Input-Parameters
 // Format: jpg or png32
@@ -78,14 +78,14 @@ $tx_col = imagecolorallocate($im, hexdec($arr_tx[0]), hexdec($arr_tx[1]), hexdec
 imagefilledrectangle($im, 0, 0, $pic_width, $pic_height, $bg_col);
 // Wrapping the Text by ((( finally width with size of content text ))) -->> 20 Test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 $wrapped_text = wordwrap($txt_content, 20, "\n");
-// center the wrapped text
+// calculating the textframe
 $text_box = imagettfbbox($font_size, 0, $font_file, $wrapped_text);
 // Get your Text Width and Height
-$text_width = $text_box[4]-$text_box[6];
-$text_height = $text_box[3]-$text_box[1];
+$text_width = $text_box[4] - $text_box[6];
+$text_height = $text_box[1] - $text_box[7];
 // Calculate coordinates of the text
-$x = ceil(($pic_width - $text_box[2]) / 2);
-$y = ceil(($pic_height - $text_box[3]) / 2);
+$x = ($pic_width - $text_width) / 2;
+$y = ($pic_height - $text_height) / 2;
 // put text into image
 imagettftext($im, $font_size, 0, $x, $y, $tx_col, $font_file, $wrapped_text);
 // imagepng() has better quality than imagejpeg()
